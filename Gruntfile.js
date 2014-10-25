@@ -12,7 +12,6 @@ module.exports = function (grunt) {
         'test/**/*',
       ],
       tasks: [
-        'shell:assets',
         'mochaTest'
       ]
     },
