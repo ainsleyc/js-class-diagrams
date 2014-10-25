@@ -23,5 +23,13 @@ describe 'Parser', ->
       output      = parser.parse(test_string)
       expect(output.methods.length).to.equal(2)
 
+    
+    it 'should get the name, variables, and methods correctly', ->
+      test_string = "class Stuff one: String two: Hash three: Array +func1 +func2 +func3 end"
+      output      = parser.parse(test_string)
+      expect(output.className).to.equal('Stuff')
+      expect(output.variables.length).to.equal(3)
+      expect(output.methods.length).to.equal(3)
+
 
 
