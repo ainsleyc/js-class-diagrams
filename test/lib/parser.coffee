@@ -13,9 +13,15 @@ describe 'Parser', ->
       output      = parser.parse(test_string)
       expect(output.className).to.equal('Stuff')
 
-    it 'should get correct number of variables correctly', ->
+    it 'should get correct number of variables', ->
       test_string = "class Stuff thing: String otherthing: Array end"
       output      = parser.parse(test_string)
       expect(output.variables.length).to.equal(2)
+
+    it 'should get correct number of methods', ->
+      test_string = "class Stuff +func1 +func2 end"
+      output      = parser.parse(test_string)
+      expect(output.methods.length).to.equal(2)
+
 
 
