@@ -1,0 +1,143 @@
+{
+  "classes": [
+    {
+      "name": "RoadVehicle",
+      "attributes": [
+        {
+          "name": "make",
+          "type": "string",
+          "vis": "protected"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "vis": "protected"
+        },
+        {
+          "name": "currSpeed",
+          "type": "double",
+          "vis": "protected"
+        }
+      ],
+      "methods": [
+        {
+          "name": "turn",
+          "vis": "public",
+          "params": [
+            {
+              "name": "angle",
+              "type": "double"
+            }
+          ]
+        }, 
+        {
+          "name": "accelerate",
+          "vis": "public",
+          "params": [
+            {
+              "name": "toSpeed",
+              "type": "double"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Car",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "name": "Motorcycle",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "name": "TeslaModelS",
+      "attributes": [
+        {
+          "name": "make",
+          "type": "string",
+          "vis": "protected",
+          "value": "Tesla"
+        },
+        {
+          "name": "model",
+          "type": "string",
+          "vis": "protected",
+          "value": "Model S"
+        }
+      ],
+      "methods": []
+    },
+    {
+      "name": "Wheel",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "name": "BobbleHead",
+      "attributes": [],
+      "methods": []
+    },
+    {
+      "name": "Driver",
+      "attributes": [],
+      "methods": []
+    }
+  ],
+  "classRelations": [
+    {
+      "from": "Car",
+      "to": "RoadVehicle",
+      "type": "realization"
+    },
+    {
+      "from": "Truck",
+      "to": "RoadVehicle",
+      "type": "realization"
+    },
+    {
+      "from": "TeslaModelS",
+      "to": "Car",
+      "type": "generalization"
+    }
+  ],
+  "instanceRelations": [
+    {
+      "from": "Wheel",
+      "fromMin": 4,
+      "fromMax": 4,
+      "to": "Car",
+      "toMin": 1,
+      "toMax": 1,
+      "type": "composition"
+    },
+    {
+      "from": "Wheel",
+      "fromMin": 2,
+      "fromMax": 2,
+      "to": "Motorcycle",
+      "toMin": 1,
+      "toMax": 1,
+      "type": "composition"
+    },
+    {
+      "from": "BobbleHead",
+      "fromMin": 0,
+      "to": "Car",
+      "toMin": 0,
+      "toMax": 1,
+      "type": "aggregation"
+    },
+    {
+      "from": "Driver",
+      "fromMin": 0,
+      "fromMax": 1,
+      "to": "RoadVehicle",
+      "toMin": 0,
+      "toMax": 1,
+      "type": "association"
+    }
+  ]
+}

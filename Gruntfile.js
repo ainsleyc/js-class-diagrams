@@ -8,6 +8,7 @@ module.exports = function (grunt) {
   var LIVERELOAD_PORT = 35729;
   var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-coffee');
@@ -108,20 +109,44 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: './styles',
-          dest: './test/app/styles',
+          dest: './test/app/lib',
           ext: '.css',
           src: [ '*.scss' ]
         }]
       }
+    },
+    copy: {
+      test: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: './assets',
+          dest: './test/app/assets',
+          src: [ '*.json' ]
+        }]
+      }
+    },
+    clean: {
+      build: [
+        'build', 
+        'dist'
+      ],
+      test: [
+        'test/app/assets',
+        'test/app/lib'
+      ]
     }
   });
 
   grunt.registerTask('build', [
+    'clean:test',
+    'clean:build',
     'coffee:build',
     'uglify:test',
     'uglify:dist',
     'sass:test',
-    'sass:dist'
+    'sass:dist',
+    'copy:test'
   ]);
 
   grunt.registerTask('default', [
