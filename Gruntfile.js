@@ -28,6 +28,7 @@ module.exports = function (grunt) {
         'test/**/*',
       ],
       tasks: [
+        'build',
         'mochaTest'
       ]
     },
@@ -128,12 +129,12 @@ module.exports = function (grunt) {
     },
     clean: {
       build: [
-        'build', 
-        'dist'
+        'build/*', 
+        'dist/*'
       ],
       test: [
-        'test/app/assets',
-        'test/app/lib'
+        'test/app/assets/*',
+        'test/app/lib/*'
       ]
     }
   });

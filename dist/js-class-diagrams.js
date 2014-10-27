@@ -1,6 +1,7 @@
 (function() {
     var a, b, c;
-    b = require("pegjs"), c = require("underscore"), a = function() {
+    "undefined" != typeof require && null !== require && (b = require("pegjs"), c = require("underscore")), 
+    a = function() {
         function a(a) {
             this.grammar = a, this.parser = b.buildParser(a);
         }
@@ -9,9 +10,13 @@
         }, a;
     }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a);
 }).call(this), function() {
-    var a;
+    var a, b;
     a = function() {
         function a() {}
-        return a;
-    }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a);
+        return a.prototype.draw = function(a, b) {
+            return $(a).text(JSON.stringify(b));
+        }, a;
+    }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a), 
+    "undefined" != typeof window && null !== window && (b = new a(), window.JCD = window.JCD || {}, 
+    window.JCD.draw = b.draw);
 }.call(this);

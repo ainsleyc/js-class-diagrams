@@ -1,5 +1,6 @@
-peg = require('pegjs')
-_   = require('underscore')
+if require?
+  peg = require('pegjs')
+  _   = require('underscore')
 
 class Parser
   constructor: (@grammar) ->
