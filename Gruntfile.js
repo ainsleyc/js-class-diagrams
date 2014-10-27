@@ -25,7 +25,9 @@ module.exports = function (grunt) {
       },
       files: [
         'lib/**/*',
-        'test/**/*',
+        'test/**/*.coffee',
+        'test/app/src/*',
+        'test/app/styles/*',
       ],
       tasks: [
         'build',
@@ -54,7 +56,7 @@ module.exports = function (grunt) {
             return [
               lrSnippet,
               mountFolder(connect, 'test/app')
-            ]
+            ];
           }
         }
       }
