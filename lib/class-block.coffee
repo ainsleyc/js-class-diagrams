@@ -7,9 +7,9 @@ class ClassBlock
 
   SCALING_FACTOR: 4
 
-  draw: (el, klass, options = {}) ->
+  draw: (svgEl, klass, options = {}) ->
     data = @_format(klass)
-    svg = d3.select(el).append("svg")
+    svg = svgEl.append("svg")
       .attr('id', data[0].labels[0].label)
       .attr('class', 'class-block')
     g = svg.selectAll('g')

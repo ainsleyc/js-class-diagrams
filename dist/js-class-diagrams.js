@@ -11,7 +11,7 @@
         return a.prototype.DEFAULT_FONT_SIZE = 10, a.prototype.DEFAULT_PADDING = 12, a.prototype.DEFAULT_TEXT_MARGIN = 10, 
         a.prototype.SCALING_FACTOR = 4, a.prototype.draw = function(a, b, c) {
             var d, e, f, g, h;
-            return null == c && (c = {}), d = this._format(b), g = d3.select(a).append("svg").attr("id", d[0].labels[0].label).attr("class", "class-block"), 
+            return null == c && (c = {}), d = this._format(b), g = a.append("svg").attr("id", d[0].labels[0].label).attr("class", "class-block"), 
             e = g.selectAll("g").data(d).enter().append("g"), f = e.append("rect").attr("class", "value-block"), 
             h = e.selectAll("text").data(function(a) {
                 return a.labels;
@@ -75,13 +75,51 @@
         }, a;
     }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a);
 }.call(this), function() {
-    var a, b;
+    var a, b, c = function(a, b) {
+        return function() {
+            return a.apply(b, arguments);
+        };
+    };
     a = function() {
-        function a() {}
-        return a.prototype.draw = function(a, b) {
-            var c, d, e, f, g;
-            for (f = b.classes, g = [], d = 0, e = f.length; e > d; d++) c = f[d], g.push(JCD.ClassBlock.draw(a, c));
-            return g;
+        function a() {
+            this._rearrangeByClass = c(this._rearrangeByClass, this), this._rearrange = c(this._rearrange, this), 
+            this.draw = c(this.draw, this);
+        }
+        return a.prototype.DEFAULT_LEVEL_PADDING = 40, a.prototype.draw = function(a, b) {
+            var c, d, e, f, g, h;
+            for (c = $(a), e = d3.select(a).append("svg").attr("height", c.height()).attr("width", c.width()), 
+            h = b.classes, f = 0, g = h.length; g > f; f++) d = h[f], JCD.ClassBlock.draw(e, d);
+            return this._rearrange(e, b);
+        }, a.prototype._rearrange = function(a, b) {
+            return this._rearrangeByClass(a, b);
+        }, a.prototype._rearrangeByClass = function(a, b) {
+            var c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
+            for (i = this._inheritanceLevels(b), l = a.attr("width"), d = a.attr("height"), 
+            h = this.DEFAULT_LEVEL_PADDING, n = 0, s = [], f = o = 0, q = i.length; q > o; f = ++o) {
+                for (j = i[f], k = 0, e = p = 0, r = j.length; r > p; e = ++p) g = j[e], m = l / 1.5 / (j.length + 1) * (e + 1), 
+                c = a.select("#" + g), null != c && (k = Math.max(k, c.attr("height")), c.attr("x", m - c.attr("width") / 2).attr("y", n + (f + 1) * h));
+                s.push(n += k);
+            }
+            return s;
+        }, a.prototype._inheritanceLevels = function(a) {
+            var b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
+            for (e = [], i = {}, q = a.classRelations, k = 0, n = q.length; n > k; k++) b = q[k], 
+            null == i[b.to] && (i[b.to] = {
+                from: 0,
+                to: 0
+            }), i[b.to].to += 1, null == i[b.from] && (i[b.from] = {
+                from: 0,
+                to: 0
+            }), i[b.from].from += 1;
+            f = [];
+            for (d in i) j = i[d], 0 === j.from && (f.push(d), delete i[d]);
+            for (e.push(f), h = 0; h !== Object.keys(i).length; ) {
+                for (h = Object.keys(i).length, g = [], r = e[e.length - 1], l = 0, o = r.length; o > l; l++) for (c = r[l], 
+                s = a.classRelations, m = 0, p = s.length; p > m; m++) b = s[m], b.to === c && (g.push(b.from), 
+                delete i[b.from]);
+                g.length > 0 && e.push(g);
+            }
+            return e;
         }, a;
     }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a), 
     "undefined" != typeof window && null !== window && (b = new a(), window.JCD = window.JCD || {}, 

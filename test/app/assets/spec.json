@@ -93,7 +93,7 @@
       "type": "realization"
     },
     {
-      "from": "Truck",
+      "from": "Motorcycle",
       "to": "RoadVehicle",
       "type": "realization"
     },
