@@ -17,7 +17,7 @@
                 return a.labels;
             }).enter().append("text").text(function(a) {
                 return a.label;
-            }), this._resize(g, c);
+            }), this._resize(g, c), g;
         }, a.prototype._format = function(a) {
             var b;
             return b = [], null != a.name && b.push({

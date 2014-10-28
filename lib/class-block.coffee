@@ -26,6 +26,8 @@ class ClassBlock
 
     @_resize(svg, options)
 
+    return svg
+
   _format: (klass) =>
     result = []
     if klass.name?
