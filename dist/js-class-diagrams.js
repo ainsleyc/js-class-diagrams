@@ -11,7 +11,7 @@
         return a.prototype.DEFAULT_FONT_SIZE = 10, a.prototype.DEFAULT_PADDING = 12, a.prototype.DEFAULT_TEXT_MARGIN = 10, 
         a.prototype.SCALING_FACTOR = 4, a.prototype.draw = function(a, b, c) {
             var d, e, f, g, h;
-            return null == c && (c = {}), d = this._format(b), g = d3.select(a).append("svg").attr("class", "class-block"), 
+            return null == c && (c = {}), d = this._format(b), g = d3.select(a).append("svg").attr("id", d[0].labels[0].label).attr("class", "class-block"), 
             e = g.selectAll("g").data(d).enter().append("g"), f = e.append("rect").attr("class", "value-block"), 
             h = e.selectAll("text").data(function(a) {
                 return a.labels;

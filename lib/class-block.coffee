@@ -10,6 +10,7 @@ class ClassBlock
   draw: (el, klass, options = {}) ->
     data = @_format(klass)
     svg = d3.select(el).append("svg")
+      .attr('id', data[0].labels[0].label)
       .attr('class', 'class-block')
     g = svg.selectAll('g')
       .data(data)
