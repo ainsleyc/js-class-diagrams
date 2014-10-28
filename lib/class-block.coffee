@@ -31,14 +31,18 @@ class ClassBlock
       .attr('y', (d) -> return d.offset + (padding * 2))
       .attr('x', (d) -> return padding)
       .text((d) -> return d.label)
+
     width = 0
-    svg.selectAll('text').each((d, i)->
-      console.log(@getBBox())
+    text.each((d, i) ->
       width = Math.max(width, @getBBox().width)
     )
     width = width + (padding * 2)
     svg.attr('width', width)
     rect.attr('width', width)
+
+    svg.select('text')
+      .attr('text-anchor', 'middle')
+      .attr('x', width / 2)
 
   _format: (klass) =>
     result = []

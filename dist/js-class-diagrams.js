@@ -25,9 +25,9 @@
                 return g;
             }).text(function(a) {
                 return a.label;
-            }), k = 0, i.selectAll("text").each(function() {
-                return console.log(this.getBBox()), k = Math.max(k, this.getBBox().width);
-            }), k += 2 * g, i.attr("width", k), h.attr("width", k);
+            }), k = 0, j.each(function() {
+                return k = Math.max(k, this.getBBox().width);
+            }), k += 2 * g, i.attr("width", k), h.attr("width", k), i.select("text").attr("text-anchor", "middle").attr("x", k / 2);
         }, a.prototype._format = function(a) {
             var b;
             return b = [], null != a.name && b.push({
