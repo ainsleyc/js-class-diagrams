@@ -32,17 +32,7 @@ class ClassBlock
       .attr('x', (d) -> return padding)
       .text((d) -> return d.label)
 
-    width = 0
-    text.each((d, i) ->
-      width = Math.max(width, @getBBox().width)
-    )
-    width = width + (padding * 2)
-    svg.attr('width', width)
-    rect.attr('width', width)
-
-    svg.select('text')
-      .attr('text-anchor', 'middle')
-      .attr('x', width / 2)
+    @_setDimentions(svg, padding)
 
   _format: (klass) =>
     result = []
@@ -79,6 +69,31 @@ class ClassBlock
       totalHeight += block.height
     data.height = totalHeight
     return data
+
+  _setDimentions: (svg, padding) ->
+    width = 0
+    height = 0
+    g = svg.selectAll('g')
+    g.selectAll('text').each((d, i) ->
+      box = @getBBox()
+      width = Math.max(width, box.width)
+      height = box.height
+    )
+    width = width + (padding * 2)
+    svg.attr('width', width)
+    svg.selectAll('rect')
+      .attr('width', width)
+
+    svg.select('text')
+      .attr('text-anchor', 'middle')
+      .attr('x', width / 2)
+
+    g.each((d, i) ->
+      totalHeight = d.labels.length * height
+      d3.select(@).select('rect')
+        .attr('height', totalHeight)
+    )
+    
 
 if typeof module?.exports isnt 'undefined'
   module.exports = ClassBlock

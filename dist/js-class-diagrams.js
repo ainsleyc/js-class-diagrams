@@ -10,7 +10,7 @@
         }
         return a.prototype.DEFAULT_FONT_SIZE = 10, a.prototype.DEFAULT_PADDING = 10, a.prototype.SCALING_FACTOR = 4, 
         a.prototype.draw = function(a, b, c) {
-            var d, e, f, g, h, i, j, k;
+            var d, e, f, g, h, i, j;
             return null == c && (c = {}), e = c.font || this.DEFAULT_FONT_SIZE, g = c.padding || this.DEFAULT_PADDING, 
             d = this._format(b), d = this._getDimentions(d, e, g), i = d3.select(a).append("svg").attr("height", d.height).attr("rx", 10).attr("ry", 10).attr("class", "class-block"), 
             f = i.selectAll("g").data(d).enter().append("g"), h = f.append("rect").attr("height", function(a) {
@@ -25,9 +25,7 @@
                 return g;
             }).text(function(a) {
                 return a.label;
-            }), k = 0, j.each(function() {
-                return k = Math.max(k, this.getBBox().width);
-            }), k += 2 * g, i.attr("width", k), h.attr("width", k), i.select("text").attr("text-anchor", "middle").attr("x", k / 2);
+            }), this._setDimentions(i, g);
         }, a.prototype._format = function(a) {
             var b;
             return b = [], null != a.name && b.push({
@@ -61,6 +59,16 @@
                 g += d.height;
             }
             return a.height = g, a;
+        }, a.prototype._setDimentions = function(a, b) {
+            var c, d, e;
+            return e = 0, d = 0, c = a.selectAll("g"), c.selectAll("text").each(function() {
+                var a;
+                return a = this.getBBox(), e = Math.max(e, a.width), d = a.height;
+            }), e += 2 * b, a.attr("width", e), a.selectAll("rect").attr("width", e), a.select("text").attr("text-anchor", "middle").attr("x", e / 2), 
+            c.each(function(a) {
+                var b;
+                return b = a.labels.length * d, d3.select(this).select("rect").attr("height", b);
+            });
         }, a;
     }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a), 
     "undefined" != typeof window && null !== window && (window.JCD = window.JCD || {}, 
