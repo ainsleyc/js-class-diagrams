@@ -6,26 +6,18 @@
     };
     a = function() {
         function a() {
-            this._format = b(this._format, this);
+            this._resize = b(this._resize, this), this._format = b(this._format, this);
         }
-        return a.prototype.DEFAULT_FONT_SIZE = 10, a.prototype.DEFAULT_PADDING = 10, a.prototype.SCALING_FACTOR = 4, 
-        a.prototype.draw = function(a, b, c) {
-            var d, e, f, g, h, i, j;
-            return null == c && (c = {}), e = c.font || this.DEFAULT_FONT_SIZE, g = c.padding || this.DEFAULT_PADDING, 
-            d = this._format(b), d = this._getDimentions(d, e, g), i = d3.select(a).append("svg").attr("height", d.height).attr("rx", 10).attr("ry", 10).attr("class", "class-block"), 
-            f = i.selectAll("g").data(d).enter().append("g"), h = f.append("rect").attr("height", function(a) {
-                return a.height;
-            }).attr("y", function(a) {
-                return a.offset;
-            }).attr("class", "value-block"), j = f.selectAll("text").data(function(a) {
+        return a.prototype.DEFAULT_FONT_SIZE = 10, a.prototype.DEFAULT_PADDING = 12, a.prototype.DEFAULT_TEXT_MARGIN = 10, 
+        a.prototype.SCALING_FACTOR = 4, a.prototype.draw = function(a, b, c) {
+            var d, e, f, g, h;
+            return null == c && (c = {}), d = this._format(b), g = d3.select(a).append("svg").attr("class", "class-block"), 
+            e = g.selectAll("g").data(d).enter().append("g"), f = e.append("rect").attr("class", "value-block"), 
+            h = e.selectAll("text").data(function(a) {
                 return a.labels;
-            }).enter().append("text").attr("y", function(a) {
-                return a.offset + 2 * g;
-            }).attr("x", function() {
-                return g;
-            }).text(function(a) {
+            }).enter().append("text").text(function(a) {
                 return a.label;
-            }), this._setDimentions(i, g);
+            }), this._resize(g, c);
         }, a.prototype._format = function(a) {
             var b;
             return b = [], null != a.name && b.push({
@@ -44,31 +36,29 @@
             for (c = [], d = 0, e = a.length; e > d; d++) b = a[d], c.push({
                 label: "" + b.vis + " " + b.name + " (" + b.type + ")"
             });
-            return c;
+            return 0 === c.length && c.push({
+                label: ""
+            }), c;
         }, a.prototype._getMethods = function(a) {
             var b, c, d, e;
             for (c = [], d = 0, e = a.length; e > d; d++) b = a[d], c.push({
                 label: "" + b.vis + " " + b.name
             });
-            return c;
-        }, a.prototype._getDimentions = function(a, b, c) {
-            var d, e, f, g, h, i, j, k, l;
-            for (g = 0, h = 0, j = a.length; j > h; h++) {
-                for (d = a[h], d.height = this.SCALING_FACTOR * (d.labels.length * b + c), d.offset = g, 
-                l = d.labels, e = i = 0, k = l.length; k > i; e = ++i) f = l[e], f.offset = g + 16 * e;
-                g += d.height;
-            }
-            return a.height = g, a;
-        }, a.prototype._setDimentions = function(a, b) {
-            var c, d, e;
-            return e = 0, d = 0, c = a.selectAll("g"), c.selectAll("text").each(function() {
-                var a;
-                return a = this.getBBox(), e = Math.max(e, a.width), d = a.height;
-            }), e += 2 * b, a.attr("width", e), a.selectAll("rect").attr("width", e), a.select("text").attr("text-anchor", "middle").attr("x", e / 2), 
-            c.each(function(a) {
+            return 0 === c.length && c.push({
+                label: ""
+            }), c;
+        }, a.prototype._resize = function(a, b) {
+            var c, d, e, f, g, h, i;
+            return null == b && (b = {}), c = b.font || this.DEFAULT_FONT_SIZE, f = b.padding || this.DEFAULT_PADDING, 
+            h = b.textMargin || this.DEFAULT_TEXT_MARGIN, i = 0, d = 0, e = 0, g = 0, a.selectAll("g").each(function(a) {
                 var b;
-                return b = a.labels.length * d, d3.select(this).select("rect").attr("height", b);
-            });
+                return d3.select(this).selectAll("text").each(function(a, b) {
+                    var c;
+                    return c = this.getBBox(), i = Math.max(i, c.width), d = c.height, d3.select(this).attr("y", e + f + h + b * d).attr("x", f);
+                }), b = a.labels.length * d + 2 * f, g += b, d3.select(this).select("rect").attr("height", b).attr("y", e), 
+                e += b;
+            }), i += 2 * f, a.attr("width", i), a.attr("height", g), a.selectAll("rect").attr("width", i), 
+            a.select("text").attr("text-anchor", "middle").attr("x", i / 2);
         }, a;
     }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a), 
     "undefined" != typeof window && null !== window && (window.JCD = window.JCD || {}, 
