@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "",
-"sources": [],
+"mappings": "AAAA,YAAa;EACX,YAAY,EAAE,KAAK;EACnB,YAAY,EAAE,GAAG;EACjB,EAAE,EAAE,EAAE;EACN,EAAE,EAAE,EAAE;;AAGR,YAAa;EACX,IAAI,EAAE,KAAK;EACX,MAAM,EAAE,KAAK;EACb,YAAY,EAAE,GAAG",
+"sources": ["../styles/js-class-diagrams.scss"],
 "names": [],
 "file": "js-class-diagrams.css"
 }

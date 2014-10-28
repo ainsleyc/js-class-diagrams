@@ -2,7 +2,8 @@
 class Renderer
 
   draw: (el, json) ->
-    $(el).text(JSON.stringify(json))
+    for klass in json.classes
+      JCD.ClassBlock.draw(el, klass)
 
 if typeof module?.exports isnt 'undefined'
   module.exports = Renderer
