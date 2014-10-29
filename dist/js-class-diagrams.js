@@ -91,14 +91,19 @@
     };
     a = function() {
         function a() {
-            this._rearrange = b(this._rearrange, this), this.draw = b(this.draw, this);
+            this._drawRelations = b(this._drawRelations, this), this._rearrange = b(this._rearrange, this), 
+            this._drawBlocks = b(this._drawBlocks, this), this.draw = b(this.draw, this);
         }
-        return a.prototype.DEFAULT_LEVEL_PADDING = 40, a.prototype.blocks = [], a.prototype.draw = function(a, b) {
-            var c, d, e, f, g, h, i;
-            for (c = $(a), f = d3.select(a).append("svg").attr("height", c.height()).attr("width", c.width()), 
-            i = b.classes, g = 0, h = i.length; h > g; g++) e = i[g], d = new JCD.ClassBlock(), 
-            d.draw(f, e), this.blocks.push(d);
-            return this._rearrange(f, b);
+        return a.prototype.DEFAULT_LEVEL_PADDING = 40, a.prototype.blocks = [], a.prototype.relations = {}, 
+        a.prototype.draw = function(a, b) {
+            var c, d;
+            return c = $(a), d = d3.select(a).append("svg").attr("height", c.height()).attr("width", c.width()), 
+            this._drawBlocks(d, b), this._rearrange(d, b), this._drawRelations(d, b);
+        }, a.prototype._drawBlocks = function(a, b) {
+            var c, d, e, f, g, h;
+            for (g = b.classes, h = [], e = 0, f = g.length; f > e; e++) d = g[e], c = new JCD.ClassBlock(), 
+            c.draw(a, d), h.push(this.blocks.push(c));
+            return h;
         }, a.prototype._rearrange = function(a, b) {
             var c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
             for (i = this._getLevels(b), l = a.attr("width"), d = a.attr("height"), h = this.DEFAULT_LEVEL_PADDING, 
@@ -108,35 +113,27 @@
                 s.push(n += k);
             }
             return s;
+        }, a.prototype._drawRelations = function() {
+            return console.log();
         }, a.prototype._getLevels = function(a) {
-            var b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z;
-            for (f = [], j = {}, v = a.classRelations, l = 0, p = v.length; p > l; l++) b = v[l], 
-            null == j[b.to] && (j[b.to] = {
+            var b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
+            for (d = [], i = {}, q = a.relations, k = 0, n = q.length; n > k; k++) h = q[k], 
+            null == i[h.to] && (i[h.to] = {
                 from: 0,
                 to: 0
-            }), j[b.to].to += 1, null == j[b.from] && (j[b.from] = {
+            }), i[h.to].to += 1, null == i[h.from] && (i[h.from] = {
                 from: 0,
                 to: 0
-            }), j[b.from].from += 1;
-            for (w = a.instanceRelations, m = 0, q = w.length; q > m; m++) c = w[m], null == j[c.to] && (j[c.to] = {
-                from: 0,
-                to: 0
-            }), j[c.to].to += 1, null == j[c.from] && (j[c.from] = {
-                from: 0,
-                to: 0
-            }), j[c.from].from += 1;
-            g = [];
-            for (e in j) k = j[e], 0 === k.from && (g.push(e), delete j[e]);
-            for (f.push(g), i = 0; i !== Object.keys(j).length; ) {
-                for (i = Object.keys(j).length, h = [], x = f[f.length - 1], n = 0, r = x.length; r > n; n++) {
-                    for (d = x[n], y = a.classRelations, o = 0, s = y.length; s > o; o++) b = y[o], 
-                    b.to === d && (h.push(b.from), delete j[b.from]);
-                    for (z = a.instanceRelations, u = 0, t = z.length; t > u; u++) c = z[u], c.to === d && (h.push(c.from), 
-                    delete j[c.from]);
-                }
-                h.length > 0 && f.push(h);
+            }), i[h.from].from += 1;
+            e = [];
+            for (c in i) j = i[c], 0 === j.from && (e.push(c), delete i[c]);
+            for (d.push(e), g = 0; g !== Object.keys(i).length; ) {
+                for (g = Object.keys(i).length, f = [], r = d[d.length - 1], l = 0, o = r.length; o > l; l++) for (b = r[l], 
+                s = a.relations, m = 0, p = s.length; p > m; m++) h = s[m], h.to === b && (f.push(h.from), 
+                delete i[h.from]);
+                f.length > 0 && d.push(f);
             }
-            return f;
+            return d;
         }, a;
     }(), null != ("undefined" != typeof module && null !== module ? module.exports : void 0) ? module.exports = a : "undefined" != typeof window && null !== window && (window.JCD.Renderer = a);
 }.call(this), function() {

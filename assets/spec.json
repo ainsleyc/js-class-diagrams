@@ -86,7 +86,7 @@
       "methods": []
     }
   ],
-  "classRelations": [
+  "relations": [
     {
       "from": "Car",
       "to": "RoadVehicle",
@@ -101,9 +101,7 @@
       "from": "TeslaModelS",
       "to": "Car",
       "type": "generalization"
-    }
-  ],
-  "instanceRelations": [
+    },
     {
       "from": "Wheel",
       "fromMin": 4,
@@ -139,5 +137,7 @@
       "toMax": 1,
       "type": "association"
     }
+  ],
+  "transitions": [
   ]
 }

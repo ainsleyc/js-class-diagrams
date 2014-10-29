@@ -1,0 +1,165 @@
+{
+  "classes": [
+    {
+      "name": "JCD"
+    },
+    {
+      "name": "ClassModel"
+    },
+    {
+      "name": "ClassColletion"
+    },
+    {
+      "name": "RelationModel"
+    },
+    {
+      "name": "RelationCollection"
+    },
+    {
+      "name": "ClassView"
+    },
+    {
+      "name": "RelationView"
+    },
+    {
+      "name": "DiagramView"
+    },
+    {
+      "name": "SpecModel"
+    },
+    {
+      "name": "SpecView"
+    },
+    {
+      "name": "Parser"
+    }
+  ],
+  "relations": [
+    {
+      "type": "composition",
+      "from": "ClassCollection",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "JCD",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "RelationCollection",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "JCD",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "SpecModel",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "JCD",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "SpecView",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "JCD",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "SpecModel",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "JCD",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "aggregation",
+      "from": "RelationModel",
+      "fromMin": 0,
+      "to": "RelationCollection",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "aggregation",
+      "from": "ClassModel",
+      "fromMin": 0,
+      "to": "ClassCollection",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "DiagramView",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "ClassCollection",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "DiagramView",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "RelationCollection",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "ClassModel",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "ClassView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "RelationModel",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "RelationView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "RelationModel",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "RelationView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "ClassModel",
+      "fromMin": 2,
+      "fromMax": 2,
+      "to": "RelationView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "SpecModel",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "SpecView",
+      "toMin": 1,
+      "toMax": 1
+    }
+  ],
+  "transitions": [
+  ] 
+}

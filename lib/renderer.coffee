@@ -4,6 +4,7 @@ class Renderer
   DEFAULT_LEVEL_PADDING: 40
 
   blocks: []
+  relations: {}
 
   draw: (el, json) =>
     $el = $(el)
@@ -11,12 +12,15 @@ class Renderer
       .attr('height', $el.height())
       .attr('width', $el.width())
     
+    @_drawBlocks(svg, json)
+    @_rearrange(svg, json)
+    @_drawRelations(svg, json)
+
+  _drawBlocks: (svg, json) =>
     for klass in json.classes
       block = new JCD.ClassBlock
       block.draw(svg, klass)
       @blocks.push(block)
-
-    @_rearrange(svg, json)
 
   _rearrange: (svg, json) =>
     levels = @_getLevels(json)
@@ -36,25 +40,20 @@ class Renderer
             .attr('y', y + ((j+1)*levelPadding))
       y += maxY
 
+  _drawRelations: (svg, json) =>
+    console.log()
+
   _getLevels: (json) ->
     levels = []
     relations = {}
 
-    for cRel in json.classRelations
-      if not relations[cRel.to]?
-        relations[cRel.to] = { from: 0, to: 0}
-      relations[cRel.to].to += 1
-      if not relations[cRel.from]?
-        relations[cRel.from] = { from: 0, to: 0}
-      relations[cRel.from].from += 1
-
-    for iRel in json.instanceRelations
-      if not relations[iRel.to]?
-        relations[iRel.to] = { from: 0, to: 0}
-      relations[iRel.to].to += 1
-      if not relations[iRel.from]?
-        relations[iRel.from] = { from: 0, to: 0}
-      relations[iRel.from].from += 1
+    for rel in json.relations
+      if not relations[rel.to]?
+        relations[rel.to] = { from: 0, to: 0}
+      relations[rel.to].to += 1
+      if not relations[rel.from]?
+        relations[rel.from] = { from: 0, to: 0}
+      relations[rel.from].from += 1
 
     lvl1 = []
     for klass, rels of relations
@@ -68,14 +67,10 @@ class Renderer
       prev = Object.keys(relations).length
       nextLvl = []
       for key in levels[levels.length-1]
-        for cRel in json.classRelations
-          if cRel.to is key
-            nextLvl.push(cRel.from)
-            delete(relations[cRel.from])
-        for iRel in json.instanceRelations
-          if iRel.to is key
-            nextLvl.push(iRel.from)
-            delete(relations[iRel.from])
+        for rel in json.relations
+          if rel.to is key
+            nextLvl.push(rel.from)
+            delete(relations[rel.from])
       if nextLvl.length > 0
         levels.push(nextLvl)
 
