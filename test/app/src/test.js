@@ -5,6 +5,7 @@ $(document).ready(function () {
     var editor = new JSONEditor(document.getElementById("spec"));
     editor.set(spec);
 
-    JCD.draw(document.getElementById("specDiagram"), spec);
+    jcd = new JCD(document.getElementById("specDiagram"));
+    jcd.draw(spec);
   });
 });

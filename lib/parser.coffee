@@ -9,5 +9,7 @@ class Parser
   parse: (text) ->
     @parser.parse(text)
 
-if typeof module?.exports isnt 'undefined'
+if module?.exports?
   module.exports = Parser
+else if window?
+  window.JCD.Parser = Parser

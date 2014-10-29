@@ -1,4 +1,15 @@
 (function() {
+    var a;
+    a = function() {
+        function a(b) {
+            this.el = b, this.renderer = new a.Renderer();
+        }
+        return a.prototype.draw = function(a) {
+            return this.renderer.draw(this.el, a);
+        }, a;
+    }(), null != ("undefined" != typeof module && null !== module ? module.exports : void 0) ? (module.exports = a, 
+    a.Renderer = require("renderer"), a.Parser = require("parser")) : "undefined" != typeof window && null !== window && (window.JCD = a);
+}).call(this), function() {
     var a, b = function(a, b) {
         return function() {
             return a.apply(b, arguments);
@@ -6,18 +17,29 @@
     };
     a = function() {
         function a() {
-            this._resize = b(this._resize, this), this._format = b(this._format, this);
+            this._resize = b(this._resize, this), this._format = b(this._format, this), this._move = b(this._move, this), 
+            this._getDrag = b(this._getDrag, this), this.draw = b(this.draw, this);
         }
         return a.prototype.DEFAULT_FONT_SIZE = 10, a.prototype.DEFAULT_PADDING = 12, a.prototype.DEFAULT_TEXT_MARGIN = 10, 
         a.prototype.SCALING_FACTOR = 4, a.prototype.draw = function(a, b, c) {
             var d, e, f, g, h;
-            return null == c && (c = {}), d = this._format(b), g = a.append("svg").attr("id", d[0].labels[0].label).attr("class", "class-block"), 
+            return null == c && (c = {}), d = this._format(b), g = a.append("svg").attr("id", d[0].labels[0].label).attr("class", "class-block").call(this._getDrag()), 
             e = g.selectAll("g").data(d).enter().append("g"), f = e.append("rect").attr("class", "value-block"), 
             h = e.selectAll("text").data(function(a) {
                 return a.labels;
             }).enter().append("text").text(function(a) {
                 return a.label;
-            }), this._resize(g, c), g;
+            }), this._resize(g, c), this.svg = g, this.svg;
+        }, a.prototype._getDrag = function() {
+            var a, b = this;
+            return a = new d3.behavior.drag().origin(function() {
+                return {
+                    x: b.svg.attr("x"),
+                    y: b.svg.attr("y")
+                };
+            }).on("drag", this._move);
+        }, a.prototype._move = function() {
+            return this.svg.attr("x", d3.event.x).attr("y", d3.event.y);
         }, a.prototype._format = function(a) {
             var b;
             return b = [], null != a.name && b.push({
@@ -60,38 +82,26 @@
             }), i += 2 * f, a.attr("width", i), a.attr("height", g), a.selectAll("rect").attr("width", i), 
             a.select("text").attr("text-anchor", "middle").attr("x", i / 2);
         }, a;
-    }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a), 
-    "undefined" != typeof window && null !== window && (window.JCD = window.JCD || {}, 
-    window.JCD.ClassBlock = new a());
-}).call(this), function() {
-    var a, b, c;
-    "undefined" != typeof require && null !== require && (b = require("pegjs"), c = require("underscore")), 
-    a = function() {
-        function a(a) {
-            this.grammar = a, this.parser = b.buildParser(a);
-        }
-        return a.prototype.parse = function(a) {
-            return this.parser.parse(a);
-        }, a;
-    }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a);
+    }(), null != ("undefined" != typeof module && null !== module ? module.exports : void 0) ? module.exports = a : "undefined" != typeof window && null !== window && (window.JCD.ClassBlock = a);
 }.call(this), function() {
-    var a, b, c = function(a, b) {
+    var a, b = function(a, b) {
         return function() {
             return a.apply(b, arguments);
         };
     };
     a = function() {
         function a() {
-            this._rearrangeByClass = c(this._rearrangeByClass, this), this._rearrange = c(this._rearrange, this), 
-            this.draw = c(this.draw, this);
+            this._rearrangeByInstance = b(this._rearrangeByInstance, this), this._rearrangeByClass = b(this._rearrangeByClass, this), 
+            this._rearrange = b(this._rearrange, this), this.draw = b(this.draw, this);
         }
-        return a.prototype.DEFAULT_LEVEL_PADDING = 40, a.prototype.draw = function(a, b) {
-            var c, d, e, f, g, h;
-            for (c = $(a), e = d3.select(a).append("svg").attr("height", c.height()).attr("width", c.width()), 
-            h = b.classes, f = 0, g = h.length; g > f; f++) d = h[f], JCD.ClassBlock.draw(e, d);
-            return this._rearrange(e, b);
+        return a.prototype.DEFAULT_LEVEL_PADDING = 40, a.prototype.blocks = [], a.prototype.draw = function(a, b) {
+            var c, d, e, f, g, h, i;
+            for (c = $(a), f = d3.select(a).append("svg").attr("height", c.height()).attr("width", c.width()), 
+            i = b.classes, g = 0, h = i.length; h > g; g++) e = i[g], d = new JCD.ClassBlock(), 
+            d.draw(f, e), this.blocks.push(d);
+            return this._rearrange(f, b);
         }, a.prototype._rearrange = function(a, b) {
-            return this._rearrangeByClass(a, b);
+            return this._rearrangeByClass(a, b), this._rearrangeByInstance(a, b);
         }, a.prototype._rearrangeByClass = function(a, b) {
             var c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
             for (i = this._inheritanceLevels(b), l = a.attr("width"), d = a.attr("height"), 
@@ -101,6 +111,8 @@
                 s.push(n += k);
             }
             return s;
+        }, a.prototype._rearrangeByInstance = function() {
+            return console.log();
         }, a.prototype._inheritanceLevels = function(a) {
             var b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
             for (e = [], i = {}, q = a.classRelations, k = 0, n = q.length; n > k; k++) b = q[k], 
@@ -121,7 +133,16 @@
             }
             return e;
         }, a;
-    }(), "undefined" != typeof ("undefined" != typeof module && null !== module ? module.exports : void 0) && (module.exports = a), 
-    "undefined" != typeof window && null !== window && (b = new a(), window.JCD = window.JCD || {}, 
-    window.JCD.draw = b.draw);
+    }(), null != ("undefined" != typeof module && null !== module ? module.exports : void 0) ? module.exports = a : "undefined" != typeof window && null !== window && (window.JCD.Renderer = a);
+}.call(this), function() {
+    var a, b, c;
+    "undefined" != typeof require && null !== require && (b = require("pegjs"), c = require("underscore")), 
+    a = function() {
+        function a(a) {
+            this.grammar = a, this.parser = b.buildParser(a);
+        }
+        return a.prototype.parse = function(a) {
+            return this.parser.parse(a);
+        }, a;
+    }(), null != ("undefined" != typeof module && null !== module ? module.exports : void 0) ? module.exports = a : "undefined" != typeof window && null !== window && (window.JCD.Parser = a);
 }.call(this);

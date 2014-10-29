@@ -7,11 +7,12 @@ class ClassBlock
 
   SCALING_FACTOR: 4
 
-  draw: (svgEl, klass, options = {}) ->
+  draw: (svgEl, klass, options = {}) =>
     data = @_format(klass)
     svg = svgEl.append("svg")
       .attr('id', data[0].labels[0].label)
       .attr('class', 'class-block')
+      .call(@_getDrag())
     g = svg.selectAll('g')
       .data(data)
       .enter()
@@ -25,8 +26,24 @@ class ClassBlock
       .text((d) -> return d.label)
 
     @_resize(svg, options)
+    @svg = svg
 
-    return svg
+    return @svg
+
+  _getDrag: () =>
+    drag = new d3.behavior.drag()
+      .origin((d) =>
+        return {
+          x: @svg.attr('x')
+          y: @svg.attr('y')
+        }
+      )
+      .on('drag', @_move)
+
+  _move: (d) =>
+    @svg
+      .attr('x', d3.event.x)
+      .attr('y', d3.event.y)
 
   _format: (klass) =>
     result = []
@@ -94,9 +111,7 @@ class ClassBlock
       .attr('text-anchor', 'middle')
       .attr('x', width / 2)
 
-if typeof module?.exports isnt 'undefined'
+if module?.exports?
   module.exports = ClassBlock
-
-if window?
-  window.JCD = window.JCD || {}
-  window.JCD.ClassBlock = new ClassBlock
+else if window?
+  window.JCD.ClassBlock = ClassBlock

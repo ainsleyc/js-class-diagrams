@@ -3,6 +3,8 @@ class Renderer
 
   DEFAULT_LEVEL_PADDING: 40
 
+  blocks: []
+
   draw: (el, json) =>
     $el = $(el)
     svg = d3.select(el).append('svg')
@@ -10,12 +12,15 @@ class Renderer
       .attr('width', $el.width())
     
     for klass in json.classes
-      JCD.ClassBlock.draw(svg, klass)
+      block = new JCD.ClassBlock
+      block.draw(svg, klass)
+      @blocks.push(block)
 
     @_rearrange(svg, json)
 
-  _rearrange: (el, json) =>
-    @_rearrangeByClass(el, json)
+  _rearrange: (svg, json) =>
+    @_rearrangeByClass(svg, json)
+    @_rearrangeByInstance(svg, json)
 
   _rearrangeByClass: (svg, json) =>
     levels = @_inheritanceLevels(json)
@@ -34,6 +39,9 @@ class Renderer
             .attr('x', x - block.attr('width') / 2)
             .attr('y', y + ((j+1)*levelPadding))
       y += maxY
+
+  _rearrangeByInstance: (svg, json) =>
+    console.log()
 
   _inheritanceLevels: (json) ->
     levels = []
@@ -68,10 +76,7 @@ class Renderer
 
     return levels
 
-if typeof module?.exports isnt 'undefined'
+if module?.exports?
   module.exports = Renderer
-
-if window?
-  renderer = new Renderer()
-  window.JCD = window.JCD || {}
-  window.JCD.draw = renderer.draw
+else if window?
+  window.JCD.Renderer = Renderer
