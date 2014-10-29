@@ -4,7 +4,7 @@
       "name": "JCD"
     },
     {
-      "name": "ClassColletion"
+      "name": "ClassCollection"
     },
     {
       "name": "RelationCollection"
@@ -59,9 +59,6 @@
     },
     {
       "name": "RelationView"
-    },
-    {
-      "name": "LineView"
     },
     {
       "name": "CompositionView"
@@ -237,31 +234,28 @@
       "toMax": 1
     },
     {
-      "type": "realization",
-      "from": "NameView",
-      "fromMin": 1,
-      "fromMax": 1,
+      "type": "composition",
+      "from": "BlockView",
+      "fromMin": 0,
+      "fromMax": 3,
       "to": "ClassView",
       "toMin": 1,
       "toMax": 1
+    },
+    {
+      "type": "realization",
+      "from": "NameView",
+      "to": "BlockView"
     },
     {
       "type": "realization",
       "from": "AttributeView",
-      "fromMin": 1,
-      "fromMax": 1,
-      "to": "ClassView",
-      "toMin": 1,
-      "toMax": 1
+      "to": "BlockView"
     },
     {
       "type": "realization",
       "from": "MethodView",
-      "fromMin": 1,
-      "fromMax": 1,
-      "to": "ClassView",
-      "toMin": 1,
-      "toMax": 1
+      "to": "BlockView"
     },
     {
       "type": "dependancy",
@@ -307,6 +301,31 @@
       "to": "MethodCollection",
       "toMin": 1,
       "toMax": 1
+    },
+    {
+      "type": "generalization",
+      "from": "CompositionView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "AssociationView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "RealizationView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "AggregationView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "GeneralizationView",
+      "to": "RelationView"
     }
   ]
 }

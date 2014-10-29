@@ -4,25 +4,10 @@
       "name": "JCD"
     },
     {
-      "name": "ClassModel"
-    },
-    {
-      "name": "ClassColletion"
-    },
-    {
-      "name": "RelationModel"
+      "name": "ClassCollection"
     },
     {
       "name": "RelationCollection"
-    },
-    {
-      "name": "ClassView"
-    },
-    {
-      "name": "RelationView"
-    },
-    {
-      "name": "DiagramView"
     },
     {
       "name": "SpecModel"
@@ -31,7 +16,64 @@
       "name": "SpecView"
     },
     {
+      "name": "DiagramView"
+    },
+    {
       "name": "Parser"
+    },
+    {
+      "name": "ClassModel"
+    },
+    {
+      "name": "RelationModel"
+    },
+    {
+      "name": "NameModel"
+    },
+    {
+      "name": "AttributeCollection"
+    },
+    {
+      "name": "MethodCollection"
+    },
+    {
+      "name": "AttributeModel"
+    },
+    {
+      "name": "MethodModel"
+    },
+    {
+      "name": "ClassView"
+    },
+    {
+      "name": "BlockView"
+    },
+    {
+      "name": "NameView"
+    },
+    {
+      "name": "AttributeView"
+    },
+    {
+      "name": "MethodView"
+    },
+    {
+      "name": "RelationView"
+    },
+    {
+      "name": "CompositionView"
+    },
+    {
+      "name": "AssociationView"
+    },
+    {
+      "name": "RealizationView"
+    },
+    {
+      "name": "AggregationView"
+    },
+    {
+      "name": "GeneralizationView"
     }
   ],
   "relations": [
@@ -73,7 +115,7 @@
     },
     {
       "type": "composition",
-      "from": "SpecModel",
+      "from": "DiagramView",
       "fromMin": 1,
       "fromMax": 1,
       "to": "JCD",
@@ -81,6 +123,24 @@
       "toMax": 1
     },
     {
+      "type": "dependency",
+      "from": "SpecView",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "SpecModel",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "Parser",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "SpecModel",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
       "type": "aggregation",
       "from": "RelationModel",
       "fromMin": 0,
@@ -98,68 +158,174 @@
     },
     {
       "type": "composition",
-      "from": "DiagramView",
+      "from": "NameModel",
       "fromMin": 1,
       "fromMax": 1,
-      "to": "ClassCollection",
+      "to": "ClassModel",
       "toMin": 1,
       "toMax": 1
     },
     {
       "type": "composition",
-      "from": "DiagramView",
+      "from": "AttributeCollection",
       "fromMin": 1,
       "fromMax": 1,
-      "to": "RelationCollection",
+      "to": "ClassModel",
       "toMin": 1,
       "toMax": 1
     },
     {
       "type": "composition",
-      "from": "ClassModel",
+      "from": "MethodCollection",
       "fromMin": 1,
       "fromMax": 1,
+      "to": "ClassModel",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "aggregation",
+      "from": "AttributeModel",
+      "fromMin": 0,
+      "to": "AttributeCollection",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "aggregation",
+      "from": "MethodModel",
+      "fromMin": 0,
+      "to": "MethodCollection",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "ClassCollection",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "DiagramView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "RelationCollection",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "DiagramView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "aggregation",
+      "from": "ClassView",
+      "fromMin": 0,
+      "to": "DiagramView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "aggregation",
+      "from": "RelationView",
+      "fromMin": 0,
+      "to": "DiagramView",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "composition",
+      "from": "BlockView",
+      "fromMin": 0,
+      "fromMax": 3,
       "to": "ClassView",
       "toMin": 1,
       "toMax": 1
     },
     {
-      "type": "composition",
-      "from": "RelationModel",
+      "type": "realization",
+      "from": "NameView",
+      "to": "BlockView"
+    },
+    {
+      "type": "realization",
+      "from": "AttributeView",
+      "to": "BlockView"
+    },
+    {
+      "type": "realization",
+      "from": "MethodView",
+      "to": "BlockView"
+    },
+    {
+      "type": "dependancy",
+      "from": "ClassView",
       "fromMin": 1,
       "fromMax": 1,
-      "to": "RelationView",
+      "to": "ClassModel",
       "toMin": 1,
       "toMax": 1
     },
     {
-      "type": "composition",
-      "from": "RelationModel",
+      "type": "dependancy",
+      "from": "RelationView",
       "fromMin": 1,
       "fromMax": 1,
-      "to": "RelationView",
+      "to": "RelationModel",
       "toMin": 1,
       "toMax": 1
     },
     {
-      "type": "composition",
-      "from": "ClassModel",
-      "fromMin": 2,
-      "fromMax": 2,
-      "to": "RelationView",
+      "type": "dependancy",
+      "from": "NameView",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "NameModel",
       "toMin": 1,
       "toMax": 1
     },
     {
-      "type": "composition",
-      "from": "SpecModel",
+      "type": "dependancy",
+      "from": "AttributeView",
       "fromMin": 1,
       "fromMax": 1,
-      "to": "SpecView",
+      "to": "AttributeCollection",
       "toMin": 1,
       "toMax": 1
+    },
+    {
+      "type": "dependancy",
+      "from": "MethodView",
+      "fromMin": 1,
+      "fromMax": 1,
+      "to": "MethodCollection",
+      "toMin": 1,
+      "toMax": 1
+    },
+    {
+      "type": "generalization",
+      "from": "CompositionView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "AssociationView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "RealizationView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "AggregationView",
+      "to": "RelationView"
+    },
+    {
+      "type": "generalization",
+      "from": "GeneralizationView",
+      "to": "RelationView"
     }
-  ],
-  "transitions": [
-  ] 
+  ]
 }

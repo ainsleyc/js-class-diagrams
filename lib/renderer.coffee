@@ -33,6 +33,7 @@ class Renderer
       for key, i in lvl
         x = ((width/1.5) / (lvl.length+1)) * (i+1)
         block = svg.select("##{key}")
+        # TBD this existence check is not working
         if block?
           maxY = Math.max(maxY, block.attr('height'))
           block

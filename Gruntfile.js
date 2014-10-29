@@ -26,6 +26,7 @@ module.exports = function (grunt) {
       files: [
         'lib/**/*',
         'styles/**/*',
+        'assets/**/*',
         'test/**/*.coffee',
         'test/app/src/*',
         'test/app/styles/*',
