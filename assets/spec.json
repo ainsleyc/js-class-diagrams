@@ -137,7 +137,5 @@
       "toMax": 1,
       "type": "association"
     }
-  ],
-  "transitions": [
   ]
 }
