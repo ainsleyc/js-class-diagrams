@@ -91,7 +91,6 @@
     };
     a = function() {
         function a() {
-            this._rearrangeByInstance = b(this._rearrangeByInstance, this), this._rearrangeByClass = b(this._rearrangeByClass, this), 
             this._rearrange = b(this._rearrange, this), this.draw = b(this.draw, this);
         }
         return a.prototype.DEFAULT_LEVEL_PADDING = 40, a.prototype.blocks = [], a.prototype.draw = function(a, b) {
@@ -101,37 +100,43 @@
             d.draw(f, e), this.blocks.push(d);
             return this._rearrange(f, b);
         }, a.prototype._rearrange = function(a, b) {
-            return this._rearrangeByClass(a, b), this._rearrangeByInstance(a, b);
-        }, a.prototype._rearrangeByClass = function(a, b) {
             var c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
-            for (i = this._inheritanceLevels(b), l = a.attr("width"), d = a.attr("height"), 
-            h = this.DEFAULT_LEVEL_PADDING, n = 0, s = [], f = o = 0, q = i.length; q > o; f = ++o) {
+            for (i = this._getLevels(b), l = a.attr("width"), d = a.attr("height"), h = this.DEFAULT_LEVEL_PADDING, 
+            n = 0, s = [], f = o = 0, q = i.length; q > o; f = ++o) {
                 for (j = i[f], k = 0, e = p = 0, r = j.length; r > p; e = ++p) g = j[e], m = l / 1.5 / (j.length + 1) * (e + 1), 
                 c = a.select("#" + g), null != c && (k = Math.max(k, c.attr("height")), c.attr("x", m - c.attr("width") / 2).attr("y", n + (f + 1) * h));
                 s.push(n += k);
             }
             return s;
-        }, a.prototype._rearrangeByInstance = function() {
-            return console.log();
-        }, a.prototype._inheritanceLevels = function(a) {
-            var b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s;
-            for (e = [], i = {}, q = a.classRelations, k = 0, n = q.length; n > k; k++) b = q[k], 
-            null == i[b.to] && (i[b.to] = {
+        }, a.prototype._getLevels = function(a) {
+            var b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z;
+            for (f = [], j = {}, v = a.classRelations, l = 0, p = v.length; p > l; l++) b = v[l], 
+            null == j[b.to] && (j[b.to] = {
                 from: 0,
                 to: 0
-            }), i[b.to].to += 1, null == i[b.from] && (i[b.from] = {
+            }), j[b.to].to += 1, null == j[b.from] && (j[b.from] = {
                 from: 0,
                 to: 0
-            }), i[b.from].from += 1;
-            f = [];
-            for (d in i) j = i[d], 0 === j.from && (f.push(d), delete i[d]);
-            for (e.push(f), h = 0; h !== Object.keys(i).length; ) {
-                for (h = Object.keys(i).length, g = [], r = e[e.length - 1], l = 0, o = r.length; o > l; l++) for (c = r[l], 
-                s = a.classRelations, m = 0, p = s.length; p > m; m++) b = s[m], b.to === c && (g.push(b.from), 
-                delete i[b.from]);
-                g.length > 0 && e.push(g);
+            }), j[b.from].from += 1;
+            for (w = a.instanceRelations, m = 0, q = w.length; q > m; m++) c = w[m], null == j[c.to] && (j[c.to] = {
+                from: 0,
+                to: 0
+            }), j[c.to].to += 1, null == j[c.from] && (j[c.from] = {
+                from: 0,
+                to: 0
+            }), j[c.from].from += 1;
+            g = [];
+            for (e in j) k = j[e], 0 === k.from && (g.push(e), delete j[e]);
+            for (f.push(g), i = 0; i !== Object.keys(j).length; ) {
+                for (i = Object.keys(j).length, h = [], x = f[f.length - 1], n = 0, r = x.length; r > n; n++) {
+                    for (d = x[n], y = a.classRelations, o = 0, s = y.length; s > o; o++) b = y[o], 
+                    b.to === d && (h.push(b.from), delete j[b.from]);
+                    for (z = a.instanceRelations, u = 0, t = z.length; t > u; u++) c = z[u], c.to === d && (h.push(c.from), 
+                    delete j[c.from]);
+                }
+                h.length > 0 && f.push(h);
             }
-            return e;
+            return f;
         }, a;
     }(), null != ("undefined" != typeof module && null !== module ? module.exports : void 0) ? module.exports = a : "undefined" != typeof window && null !== window && (window.JCD.Renderer = a);
 }.call(this), function() {

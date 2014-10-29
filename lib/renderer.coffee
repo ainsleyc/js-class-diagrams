@@ -19,11 +19,7 @@ class Renderer
     @_rearrange(svg, json)
 
   _rearrange: (svg, json) =>
-    @_rearrangeByClass(svg, json)
-    @_rearrangeByInstance(svg, json)
-
-  _rearrangeByClass: (svg, json) =>
-    levels = @_inheritanceLevels(json)
+    levels = @_getLevels(json)
     width = svg.attr('width')
     height = svg.attr('height')
     levelPadding = @DEFAULT_LEVEL_PADDING
@@ -40,10 +36,7 @@ class Renderer
             .attr('y', y + ((j+1)*levelPadding))
       y += maxY
 
-  _rearrangeByInstance: (svg, json) =>
-    console.log()
-
-  _inheritanceLevels: (json) ->
+  _getLevels: (json) ->
     levels = []
     relations = {}
 
@@ -54,6 +47,14 @@ class Renderer
       if not relations[cRel.from]?
         relations[cRel.from] = { from: 0, to: 0}
       relations[cRel.from].from += 1
+
+    for iRel in json.instanceRelations
+      if not relations[iRel.to]?
+        relations[iRel.to] = { from: 0, to: 0}
+      relations[iRel.to].to += 1
+      if not relations[iRel.from]?
+        relations[iRel.from] = { from: 0, to: 0}
+      relations[iRel.from].from += 1
 
     lvl1 = []
     for klass, rels of relations
@@ -71,6 +72,10 @@ class Renderer
           if cRel.to is key
             nextLvl.push(cRel.from)
             delete(relations[cRel.from])
+        for iRel in json.instanceRelations
+          if iRel.to is key
+            nextLvl.push(iRel.from)
+            delete(relations[iRel.from])
       if nextLvl.length > 0
         levels.push(nextLvl)
 
