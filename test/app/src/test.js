@@ -5,8 +5,11 @@ $(document).ready(function () {
     var editor = new JSONEditor(document.getElementById("spec"));
     editor.set(spec);
 
-    jcd = new JCD(document.getElementById("specDiagram"));
+    jcd = JCD.factory({ 
+      "display": document.getElementById("specDiagram")
+    });
     jcd.draw(spec);
+    jcd.load(spec);
   });
   $.get('assets/jcd.json', function (data) {
 
@@ -14,7 +17,10 @@ $(document).ready(function () {
     var editor = new JSONEditor(document.getElementById("jcd"));
     editor.set(spec);
 
-    jcd = new JCD(document.getElementById("jcdDiagram"));
+    jcd = JCD.factory({
+      "display": document.getElementById("jcdDiagram")
+    });
     jcd.draw(spec);
+    jcd.load(spec);
   });
 });

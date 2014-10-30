@@ -2,7 +2,7 @@ fs = require 'fs'
 expect = require('chai').expect
 Renderer = require '../../lib/renderer'
 
-describe 'Renderer', ->
+xdescribe 'Renderer', ->
 
   describe 'block 1', ->
 

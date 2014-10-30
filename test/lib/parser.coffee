@@ -2,7 +2,7 @@ fs     = require 'fs'
 expect = require('chai').expect
 Parser = require '../../lib/parser'
 
-describe 'Parser', ->
+xdescribe 'Parser', ->
 
   describe 'Basic Tests', ->
     grammar = fs.readFileSync('lib/grammars/class_grammar.pegjs').toString()

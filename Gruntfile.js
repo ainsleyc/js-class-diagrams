@@ -83,10 +83,14 @@ module.exports = function (grunt) {
         },
         files: {
           'dist/js-class-diagrams.js': [
-            'build/main.js',
+            'build/init.js',
             'build/class-block.js',
             'build/renderer.js',
-            'build/parser.js'
+            'build/parser.js',
+            'build/models/*',
+            'build/views/*',
+            'build/collections/*',
+            'build/jcd.js'
           ]
         }
       },
@@ -98,10 +102,14 @@ module.exports = function (grunt) {
         },
         files: {
           'test/app/lib/js-class-diagrams.js': [
-            'build/main.js',
+            'build/init.js',
             'build/class-block.js',
             'build/renderer.js',
-            'build/parser.js'
+            'build/parser.js',
+            'build/models/*',
+            'build/views/*',
+            'build/collections/*',
+            'build/jcd.js'
           ]
         }
       }

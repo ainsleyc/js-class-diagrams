@@ -31,7 +31,7 @@ class Renderer
     for lvl, j in levels
       maxY = 0
       for key, i in lvl
-        x = ((width/1.5) / (lvl.length+1)) * (i+1)
+        x = (width / (lvl.length+1)) * (i+1)
         block = svg.select("##{key}")
         # TBD this existence check is not working
         if block?
@@ -50,10 +50,10 @@ class Renderer
 
     for rel in json.relations
       if not relations[rel.to]?
-        relations[rel.to] = { from: 0, to: 0}
+        relations[rel.to] = { from: 0, to: 0 }
       relations[rel.to].to += 1
       if not relations[rel.from]?
-        relations[rel.from] = { from: 0, to: 0}
+        relations[rel.from] = { from: 0, to: 0 }
       relations[rel.from].from += 1
 
     lvl1 = []
@@ -64,12 +64,14 @@ class Renderer
     levels.push(lvl1)
 
     prev = 0
+    usedKeys = {}
     while prev isnt Object.keys(relations).length
       prev = Object.keys(relations).length
       nextLvl = []
       for key in levels[levels.length-1]
         for rel in json.relations
-          if rel.to is key
+          if rel.to is key and not usedKeys[rel.from]
+            usedKeys[rel.from] = true
             nextLvl.push(rel.from)
             delete(relations[rel.from])
       if nextLvl.length > 0
@@ -77,7 +79,4 @@ class Renderer
 
     return levels
 
-if module?.exports?
-  module.exports = Renderer
-else if window?
-  window.JCD.Renderer = Renderer
+window?.JCD.Renderer = Renderer
