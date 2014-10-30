@@ -1,7 +1,7 @@
 js-class-diagrams
 =================
 
-### Dev Dependancies
+## Dev Dependancies
 
 brew install phantomjs
 
