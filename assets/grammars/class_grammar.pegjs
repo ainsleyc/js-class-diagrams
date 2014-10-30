@@ -1,6 +1,4 @@
 {
-  var _ = require('underscore');
-
   function arrayToWord(arr) {
     return _.flatten(arr).join('')
   }

@@ -1,8 +1,16 @@
 (function() {
   describe('Parser', function() {
     return describe('Basic Tests', function() {
-      var parser;
-      parser = new JCD.Parser(classGrammar);
+      var classGrammar, parser;
+      classGrammar = null;
+      parser = null;
+      before(function(done) {
+        return $.get('assets/grammars/class_grammar.pegjs', function(data) {
+          classGrammar = data;
+          parser = new JCD.Parser(classGrammar);
+          return done();
+        });
+      });
       it('should get class name correctly', function() {
         var klass, output, test_string;
         test_string = "class Stuff end";

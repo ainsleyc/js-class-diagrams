@@ -2,7 +2,15 @@
 describe 'Parser', ->
 
   describe 'Basic Tests', ->
-    parser  = new JCD.Parser(classGrammar)
+
+    classGrammar = null
+    parser = null
+    before (done) ->
+      $.get('assets/grammars/class_grammar.pegjs', (data) ->
+        classGrammar = data
+        parser  = new JCD.Parser(classGrammar)
+        done()
+      )
 
     it 'should get class name correctly', ->
       test_string = "class Stuff end"

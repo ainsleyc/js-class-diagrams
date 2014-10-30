@@ -1,8 +1,5 @@
-fs = require 'fs'
-expect = require('chai').expect
-Renderer = require '../../lib/renderer'
 
-xdescribe 'Renderer', ->
+describe 'Renderer', ->
 
   describe 'block 1', ->
 
