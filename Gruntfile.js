@@ -30,23 +30,24 @@ module.exports = function (grunt) {
         'test/**/*.coffee',
         'test/app/src/*',
         'test/app/styles/*',
+        'test/app/**/*.html',
       ],
       tasks: [
         'build',
-        'mochaTest'
+        // 'mochaTest'
       ]
     },
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec',
-          require: 'coffee-script/register'
-        },
-        src: [
-          'test/**/*.coffee'
-        ]
-      }
-    },
+    // mochaTest: {
+    //   test: {
+    //     options: {
+    //       reporter: 'spec',
+    //       require: 'coffee-script/register'
+    //     },
+    //     src: [
+    //       'test/**/*.coffee'
+    //     ]
+    //   }
+    // },
     connect: {
       options: {
         hostname: '0.0.0.0',
@@ -70,6 +71,15 @@ module.exports = function (grunt) {
           cwd: 'lib',
           src: '**/*.coffee',
           dest: './build',
+          ext: '.js'
+        }]
+      },
+      test: {
+        files: [{
+          expand: true,
+          cwd: 'test/lib',
+          src: '**/*.coffee',
+          dest: './test/app/test',
           ext: '.js'
         }]
       }
@@ -101,7 +111,7 @@ module.exports = function (grunt) {
           beautify: true
         },
         files: {
-          'test/app/lib/js-class-diagrams.js': [
+          'test/app/lib/js-class-diagrams/js-class-diagrams.js': [
             'build/init.js',
             'build/class-block.js',
             'build/renderer.js',
@@ -128,7 +138,7 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           cwd: './styles',
-          dest: './test/app/lib',
+          dest: './test/app/lib/js-class-diagrams',
           ext: '.css',
           src: [ '*.scss' ]
         }]
@@ -136,13 +146,26 @@ module.exports = function (grunt) {
     },
     copy: {
       test: {
-        files: [{
-          expand: true,
-          dot: true,
-          cwd: './assets',
-          dest: './test/app/assets',
-          src: [ '*.json' ]
-        }]
+        files: [
+          // {
+          //   expand: true,
+          //   dot: true,
+          //   cwd: './node_modules',
+          //   dest: './test/app/lib',
+          //   src: [
+          //     'mocha/mocha.js',
+          //     'mocha/mocha.css',
+          //     'chai/chai.js'
+          //   ]
+          // }
+          {
+            expand: true,
+            dot: true,
+            cwd: './assets',
+            dest: './test/app/assets',
+            src: [ '**/*' ]
+          }
+        ]
       }
     },
     clean: {
@@ -152,7 +175,7 @@ module.exports = function (grunt) {
       ],
       test: [
         'test/app/assets/*',
-        'test/app/lib/*'
+        'test/app/lib/js-class-diagrams/*'
       ]
     }
   });
@@ -161,6 +184,7 @@ module.exports = function (grunt) {
     'clean:test',
     'clean:build',
     'coffee:build',
+    'coffee:test',
     'uglify:test',
     'uglify:dist',
     'sass:test',
@@ -171,7 +195,6 @@ module.exports = function (grunt) {
   grunt.registerTask('default', [
     'build',
     'connect:test',
-    'mochaTest',
     'watch'
   ]);
 

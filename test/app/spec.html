@@ -7,30 +7,22 @@
     <script src='bower_components/jsoneditor/jsoneditor.js'></script>
     <script src='bower_components/underscore/underscore.js'></script>
     <script src='bower_components/backbone/backbone.js'></script>
+    <script src='lib/peg-0.8.0.js'></script>
+    <script src='lib/mocha/mocha.js'></script>
+    <script src='lib/chai/chai.js'></script>
     <script src='lib/js-class-diagrams/js-class-diagrams.js'></script>
-    <script src='src/test.js'></script>
+    <script src='src/spec.js'></script>
 
     <link rel='stylesheet' type='text/css' href='bower_components/bootstrap/dist/css/bootstrap.css'>
     <link rel='stylesheet' type='text/css' href='bower_components/jsoneditor/jsoneditor.css'>
-    <link rel='stylesheet' type='text/css' href='lib//js-class-diagrams/js-class-diagrams.css'>
-    <link rel='stylesheet' type='text/css' href='styles/test.css'>
+    <link rel='stylesheet' type='text/css' href='lib/mocha/mocha.css'>
+    <link rel='stylesheet' type='text/css' href='lib/js-class-diagrams/js-class-diagrams.css'>
+
+    <script src='test/parser.js'></script>
+    <!-- <script src='test/renderer.js'></script> -->
+
   </head>
   <body>
-    <div class='row'>
-      <div class='col-md-3'>
-        <div id='spec' class='jsonblock'></div>
-      </div>
-      <div class='col-md-9'>
-        <div id='specDiagram' class='diagram'></div>
-      </div>
-    </div>
-    <div class='row'>
-      <div class='col-md-3'>
-        <div id='jcd' class='jsonblock'></div>
-      </div>
-      <div class='col-md-9'>
-        <div id='jcdDiagram' class='diagram'></div>
-      </div>
-    </div>
+    <div id='mocha'></div>
   </body>
 </html>

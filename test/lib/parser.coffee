@@ -1,12 +1,8 @@
-fs     = require 'fs'
-expect = require('chai').expect
-Parser = require '../../lib/parser'
 
-xdescribe 'Parser', ->
+describe 'Parser', ->
 
   describe 'Basic Tests', ->
-    grammar = fs.readFileSync('lib/grammars/class_grammar.pegjs').toString()
-    parser  = new Parser(grammar)
+    parser  = new JCD.Parser(classGrammar)
 
     it 'should get class name correctly', ->
       test_string = "class Stuff end"

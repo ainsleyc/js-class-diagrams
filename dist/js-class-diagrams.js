@@ -128,16 +128,15 @@
         }, a;
     }(), "undefined" != typeof window && null !== window && (window.JCD.Renderer = a);
 }.call(this), function() {
-    var a, b, c;
-    "undefined" != typeof require && null !== require && (b = require("pegjs"), c = require("underscore")), 
+    var a;
     a = function() {
         function a(a) {
-            this.grammar = a, this.parser = b.buildParser(a);
+            this.grammar = a, this.parser = PEG.buildParser(a);
         }
         return a.prototype.parse = function(a) {
             return this.parser.parse(a);
         }, a;
-    }(), null != ("undefined" != typeof module && null !== module ? module.exports : void 0) ? module.exports = a : "undefined" != typeof window && null !== window && (window.JCD.Parser = a);
+    }(), window.JCD.Parser = a;
 }.call(this), function() {
     var a, b, c, d = {}.hasOwnProperty, e = function(a, b) {
         function c() {
